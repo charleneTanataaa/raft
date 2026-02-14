@@ -14,15 +14,21 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        url: config.get("DATABASE_URL"),
-        autoLoadEntities: true,
-        synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        }
-      }),
+      useFactory: (config: ConfigService) => {
+        const dbUrl = config.get("DATABASE_URL");
+        console.log('DB URL:', dbUrl);  // Add this for debugging
+        return {
+          type: 'postgres',
+          url: dbUrl,
+          autoLoadEntities: true,
+          synchronize: true,
+          ssl: {
+            reqiure: true,
+            rejectUnauthorized: false,
+          },
+          logging: true,
+        };
+      },
     }),
     
     UsersModule,
