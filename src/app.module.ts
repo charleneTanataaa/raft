@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,15 +16,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.get('DB_HOST'),
-        port: Number(config.get('DB_PORT')),
-        username: config.get('DB_USER'),
-        password: config.get('DB_PASSWORD'),
-        database: config.get('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
+        url: config.get("DATABASE_URL"),
+        autoLoadEntities: true,
+        synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,
+        }
       }),
     }),
+    
     UsersModule,
     AuthModule,
     PostsModule,
@@ -32,3 +33,5 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   providers: [AppService],
 })
 export class AppModule {}
+console.log('DB URL:', process.env.DATABASE_URL);
+
