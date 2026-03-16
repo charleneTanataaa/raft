@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../api/posts.api";
+import { getPostById, getPosts } from "../api/posts.api";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
@@ -14,12 +14,13 @@ export default function Home() {
                 setPosts(data)
             }
             catch (err) {
-                console.error(err)
+                console.error(err);
+                alert("error: " + err.message);
             } finally {
                 setLoading(false)
             }
         }
-        fetchPosts()
+        fetchPosts();
     }, []);
 
 

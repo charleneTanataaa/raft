@@ -2,6 +2,7 @@
 
 :root {
   padding: 0;
+  --bg-light: #cae5e3;
   --pond-deep: #1a4a4a;
   --pond-mid: #2a7c7c;
   --pond-surface: #4ab5b0;
@@ -15,7 +16,7 @@
 }
 
 .pond-home {
-  @apply relative min-h-screen overflow-hidden p-10;
+  @apply relative min-h-screen overflow-hidden p-10 ;
   background: #cae5e3;
 }
 
@@ -26,7 +27,11 @@
     radial-gradient(ellipse 80% 30% at 20% 70%, rgba(238, 242, 242, 0.3) 0%, transparent 60%),
     radial-gradient(ellipse 60% 20% at 80% 40%, rgba(63, 162, 142, 0.2) 0%, transparent 50%),
     radial-gradient(ellipse 100% 40% at 50% 90%, rgba(53, 131, 131, 0.4) 0%, transparent 60%);
-  z-index: 0;
+    z-index: 1;
+}
+
+.form-label{
+  @apply text-xs uppercase font-semibold;
 }
 
 .post-content {
